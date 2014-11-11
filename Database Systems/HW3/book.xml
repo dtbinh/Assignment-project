@@ -1,0 +1,85 @@
+<books>
+	<book>
+		<ID>1</ID>
+		<TITLE>A Heartbreaking Work of Staggering Genius</TITLE>
+		<AUTHOR>Dave Eggers</AUTHOR>
+		<PRICE>22.75</PRICE>
+		<ISBN>0-37-572578-4</ISBN>
+		<PUBLISH_DATE>2001-02-13</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>2</ID>
+		<TITLE>All the Presidents Men</TITLE>
+		<AUTHOR>Bob Woodward</AUTHOR>
+		<AUTHOR>Carl Bernstein</AUTHOR>
+		<PRICE>10.51</PRICE>
+		<ISBN>6-718-49441-2</ISBN>
+		<PUBLISH_DATE>1994-06-16</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>3</ID>
+		<TITLE>Life After Life</TITLE>
+		<AUTHOR>Kate Atkinson</AUTHOR>
+		<PRICE>27.99</PRICE>
+		<ISBN>4-316-17648-6</ISBN>
+		<PUBLISH_DATE>2013-04-02</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>4</ID>
+		<TITLE>Alex Cross, Run</TITLE>
+		<AUTHOR>James Patterson</AUTHOR>
+		<PRICE>28.99</PRICE>
+		<ISBN>7-31-609751-9</ISBN>
+		<PUBLISH_DATE>2013-02-18</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>5</ID>
+		<TITLE>Tenth of December</TITLE>
+		<AUTHOR>George Saunders</AUTHOR>
+		<PRICE>14.64</PRICE>
+		<ISBN>1-81299-380-6</ISBN>
+		<PUBLISH_DATE>2014-02-10</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>6</ID>
+		<TITLE>Allegiant</TITLE>
+		<AUTHOR>Veronica Roth</AUTHOR>
+		<PRICE>31.57</PRICE>
+		<ISBN>6-57399-410-2</ISBN>
+		<PUBLISH_DATE>2013-10-22</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>7</ID>
+		<TITLE>The Winter People</TITLE>
+		<AUTHOR>Jennifer McMahon</AUTHOR>
+		<AUTHOR>Joseph Bruchac</AUTHOR>
+		<PRICE>15.88</PRICE>
+		<ISBN>9-385-95384-9</ISBN>
+		<PUBLISH_DATE>2014-02-11</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>8</ID>
+		<TITLE>Still Life with Bread Crumbs</TITLE>
+		<AUTHOR>Anna Quindlen</AUTHOR>
+		<AUTHOR>Sue Monk Kidd</AUTHOR>
+		<PRICE>26.4</PRICE>
+		<ISBN>5-63-160433-7</ISBN>
+		<PUBLISH_DATE>2014-01-28</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>9</ID>
+		<TITLE>A Game of Thrones</TITLE>
+		<AUTHOR>George R.R. Martin</AUTHOR>
+		<PRICE>27.75</PRICE>
+		<ISBN>8-93110-553-4</ISBN>
+		<PUBLISH_DATE>2013-10-29</PUBLISH_DATE>
+	</book>
+	<book>
+		<ID>10</ID>
+		<TITLE>A Song of Ice and Fire</TITLE>
+		<AUTHOR>George R.R. Martin</AUTHOR>
+		<PRICE>24.6</PRICE>
+		<ISBN>8-931-32108-1</ISBN>
+		<PUBLISH_DATE>2014-01-15</PUBLISH_DATE>
+	</book>
+</books>

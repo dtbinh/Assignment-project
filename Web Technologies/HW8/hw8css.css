@@ -1,0 +1,18 @@
+.body
+{
+width: 100%;background-image:url("http://cs-server.usc.edu:25882/examples/servlets/stockmarket.jpg")
+}
+
+.mss
+{
+
+}
+.news
+{
+margin-left:300;margin-right:300
+}
+
+td
+{
+padding: 10 10 10 10
+}

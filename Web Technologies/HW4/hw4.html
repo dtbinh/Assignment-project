@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function getXMLUrl()
+	{
+	var texturl = document.getElementById("url");
+	return texturl.value;
+	}
+
+function error(message)
+{
+alert(message);
+}
+
+function myXMLtoHTML()
+{
+	var xmlurl = getXMLUrl();
+	if(xmlurl===""||xmlurl==="null")
+	{
+		error("URL cannot be empty");
+		return;
+	}
+		
+	var xmlhttp = new XMLHttpRequest();
+		
+	try
+	{
+		xmlhttp.open("GET", xmlurl, false);
+		xmlhttp.send();			
+	}
+	catch(err)
+	{
+		error("Invalid URL!");
+		return;
+	}
+	
+	if(xmlhttp.status == 404){
+		error("File not found!");
+		return;
+	}
+
+	var xmlDoc = xmlhttp.responseXML;
+		
+
+		//check if its a valid XML response
+	if(xmlDoc.documentElement.nodeName === "parsererror"){
+		error("Error in XML file");
+		return;
+	}
+		
+		//Creating a new Window
+	var myWindow = window.open("","newWindow","scrollbars=yes,toolbar=yes,resizable=yes,height=200,width=200");
+	myWindow.document.write("<!DOCTYPE html>");
+	myWindow.document.write("<html>");	
+	myWindow.document.write("<body>");	
+	myWindow.document.write('<table border="1">');
+	myWindow.document.write("<tr><th>COMMON</th><th>BOTANICAL</th><th>ZONE</th><th>LIGHT</th><th>PRICE</th><th>IMAGE</th>");	
+	
+	var children = xmlDoc.getElementsByTagName("PLANT");
+	var numberOfPlants = 0;
+		
+	for(var i = 0; i < children.length ; i++)
+	{
+		var common =children[i].getElementsByTagName("COMMON")[0].childNodes[0];
+		var botanical=children[i].getElementsByTagName("BOTANICAL")[0].childNodes[0];
+		var zone= children[i].getElementsByTagName("ZONE")[0].childNodes[0];
+		var light= children[i].getElementsByTagName("LIGHT")[0].childNodes[0];
+		var price= children[i].getElementsByTagName("PRICE")[0].childNodes[0];
+		var image = children[i].getElementsByTagName("IMAGE")[0].childNodes[0];
+			
+		myWindow.document.write("<tr><td>");
+		myWindow.document.write(getNodeValue(common));
+		myWindow.document.write("</td><td>");
+		myWindow.document.write(getNodeValue(botanical));
+		myWindow.document.write("</td><td>");
+		myWindow.document.write(getNodeValue(zone));
+		myWindow.document.write("</td><td>");
+		myWindow.document.write(getNodeValue(light));
+		myWindow.document.write("</td><td>");
+		myWindow.document.write(getNodeValue(price));
+		myWindow.document.write('</td><td><img src="');
+		myWindow.document.write(getNodeValue(image));
+		myWindow.document.write('"width="200" height="150"</td></tr>');
+		numberOfPlants++;
+	} 
+		myWindow.document.write("</table>");
+		myWindow.document.write("<noscript>");
+		myWindow.document.write("</bo"+"dy>");
+		
+		if(numberOfPlants==0)
+		{	myWindow.close();
+			error("No plants found!!!");
+			
+			return;
+		}	
+}
+
+function getNodeValue(node)
+{
+	if((node==null) || (typeof(node)==="undefined"))
+	{
+		return "N/A";
+	} else
+		return node.nodeValue;
+	}
+
+</script>
+</head>
+<body>
+<form name="myForm">
+<h1><center>Enter URL for Plant Catalog XML File</center></h1><br><br>
+<center><input type="text" id="url"></center><br><br>
+<center><button type="button" onclick="myXMLtoHTML()">Submit Query</button></center>
+</form>
+<noscript>
+</body>
+</html>

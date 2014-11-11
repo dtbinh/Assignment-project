@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <TITLE>
+      Homework 8 | Stock Search
+    </title>
+<link rel="stylesheet" type="text/css" href="hw8css.css">
+
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://yui.yahooapis.com/3.16.0-rc-1/build/yui/yui-min.js"></script>
+
+<script type="text/javascript">
+
+var APP_ID="611654888924885";
+function FacebookStock() {
+	//alert(symbname+ltpo+changetype+changeval+changepercent+symb+img);
+	FB.ui(
+		      {
+		       method: 'feed',
+		       name: symbname,
+		       caption: 'Stock Information of '+symbname+' ('+symb+')',
+		       description: (
+		    		   'Last Trade Price:'+ltpo+',Change: '+changetype+''+changeval+' ('+changepercent+'%)'
+		       ),
+		       link: 'http://finance.yahoo.com/q?s='+searchstock.symbol.value,
+		       picture: 'http://chart.finance.yahoo.com/t?s='+searchstock.symbol.value+'&lang=en-US&amp;width=300&height=180'
+		      },
+		      function(response) {
+		        if (response && response.post_id) {
+		          alert('Post was published.');
+		        } else {
+		          alert('Post was not published.');
+		        }
+		      }
+		    );
+	}
+
+	var symbname,symb;
+	var ltpo,changetype,changeval,changepercent;
+	var img,quote;
+
+	function validate()
+	{		
+		if (searchstock.symbol.value=="")
+		{
+			alert("Please enter a company name/symbol");
+			document.getElementById('top').style.display='none';
+			document.getElementById('hr1').style.display='none';
+			document.getElementById('bottom').style.display='none';
+			return false;
+		}
+	
+	
+		if(window.XMLHttpRequest){
+			req= new XMLHttpRequest();
+		} else
+		{
+			if(window.ActiveXObject)
+			req=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		if(req)
+		{
+			req.onreadystatechange = callback;
+			req.open("GET","http://cs-server.usc.edu:25882/examples/servlet/stock_servlet?symbol="+searchstock.symbol.value,true);
+			//alert("http://cs-server.usc.edu:25882/examples/servlet/stock_servlet?symbol="+searchstock.symbol.value);
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+			req.send("");
+		} else
+		{
+			alert("Sorry, but I could not create an XMLHttpRequest");
+		}
+	}
+
+	function callback()
+	{
+		var data;
+		//alert(req.readyState+"   "+req.status);
+	
+		if (req.readyState == 4 && req.status==200) 
+		{
+			//alert("Response: "+req.responseText);
+			data = eval('(' + req.responseText + ')');
+		
+		} else 
+		{
+			//alert("fail");
+		}
+	
+		//alert(data.result.News.Item.length);
+		if(!data.result.error)
+		{
+			document.getElementById('bottom').innerHTML="";
+			//document.getElementById('maincontent').innerHTML="";
+		
+			if(data.result.Quote.LastTradePriceOnly!="0.00")
+			{
+			document.getElementById("stnf").style.display="none";
+			var up="http://www-scf.usc.edu/~csci571/2014Spring/hw6/up_g.gif";
+			var down="http://www-scf.usc.edu/~csci571/2014Spring/hw6/down_r.gif";
+		
+			document.getElementById('name').innerHTML = "<table><tr><td><font size='5px' color='white' face='Arial'><b>"+data.result.Name+"</b></td><td><font size='5px' color='white' face='Arial'><b>("+data.result.Symbol+")</b></td></tr></table>";
+			symbname=data.result.Name,oytp=data.result.Quote.OneYearTargetPrice;
+			symb=data.result.Symbol;
+			img=data.result.StockChartImageURL;
+		
+			document.getElementById('top').style.display='block';
+			document.getElementById('bottom').style.display='block';
+			document.getElementById('hr1').style.display='block';
+			//document.getElementById('stnf').style.display='none';
+			if(data.result.Quote.ChangeType=="+")
+			{
+				document.getElementById('lastprice').innerHTML = "<table><tr><td><font size='7px' color='white'>"+data.result.Quote.LastTradePriceOnly+"</td><td>&nbsp;&nbsp;&nbsp;<img src='"+up+"' alt='"+data.result.Quote.ChangeType+"' height='25px' width='10px'></td><td><font color='green' size='6px'>"+data.result.Quote.Change+"</td><td><font color='green' size='6px'> ("+data.result.Quote.ChangeInPercent+"%)</td></table>";
+				ltpo=data.result.Quote.LastTradePriceOnly;
+				changetype=data.result.Quote.ChangeType;
+				changeval=data.result.Quote.Change;
+				changepercent=data.result.Quote.ChangeInPercent;
+			} else
+			{
+				document.getElementById('lastprice').innerHTML = "<table><tr><td><font size='7px' color='white'>"+data.result.Quote.LastTradePriceOnly+"</td><td>&nbsp;&nbsp;&nbsp;<img src='"+down+"' alt='"+data.result.Quote.ChangeType+"' height='25px' width='10px'></td><td><font color='red' size='6px'>"+data.result.Quote.Change+"</td><td><font color='red' size='6px'> ("+data.result.Quote.ChangeInPercent+"%)</td></table>";	
+				ltpo=data.result.Quote.LastTradePriceOnly;
+				changetype=data.result.Quote.ChangeType;
+				changeval=data.result.Quote.Change;
+				changepercent=data.result.Quote.ChangeInPercent;
+			}
+			//document.getElementById('stockimg').innerHTML = "<table><tr><td><img src ='"+data.result.StockChartImageURL+"' align='right'></td></tr></table>";
+			document.getElementById('divfb').style.visibility='visible';
+			document.getElementById('stockimg').innerHTML = "<table><tr><td IMG-ALIGN='right'><img src ='"+data.result.StockChartImageURL+"' align='right' height='160px' style='position:relative;left:145px'></td></tr></table>";
+			document.getElementById('hr1').style.visibility='visible';
+		
+			news=data.result.News.Item;
+			link=data.result.News.Item;
+			var item="<ul>";
+			//alert(news.length);
+			if(news.length==null)
+			{
+				item +="News Information Not Available";
+			} else {
+				for(var i=0;i<news.length;i++)
+				{
+					item+="<li align='center'><a target='_blank' href='"+link[i].Link+"'>"+news[i].Title+"</a></li>";
+				}
+			}
+			item+="</ul>";
+			//alert(item);
+			YUI().use('tabview','autocomplete', 'autocomplete-highlighters','node','event','autocomplete-filters', function (Y) {
+				// TabView is available and ready for use. Add implementation
+				// code here.
+				var tabview = new Y.TabView({
+					children: [{
+						label: 'Quote Information',
+						content: '<table width="100%"><tr><td width="25%">Prev Close:</td><td align="right" width="25%">'+data.result.Quote.PreviousClose+'</td><td  width="25%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Days Range:</td><td align="right" width="25%">'+data.result.Quote.DaysLow+'-'+data.result.Quote.DaysHigh+'</td></tr><tr><td width="20%">Open:</td><td align="right" width="25%">'+data.result.Quote.Open+'</td><td width="25%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;52wk Range:</td><td align="right" width="25%">'+data.result.Quote.YearLow+' - '+data.result.Quote.YearHigh+'</td></tr><tr><td width="25%">Bid:</td><td align="right" width="25%">'+data.result.Quote.Bid+'</td><td width="25%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Volume:</td><td align="right" width="25%">'+data.result.Quote.Volume+'</td></tr><tr><td width="25%">Ask:</td><td align="right" width="25%">'+data.result.Quote.Ask+'</td><td width="25%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avg Vol(3m):</td><td align="right" width="25%">'+data.result.Quote.AverageDailyVolume+'</td></tr><tr><td width="25%">1y Target Est:</td><td align="right" width="25%">'+data.result.Quote.OneYearTargetPrice+'</td><td width="25%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Cap:</td><td align="right" width="25%">'+data.result.Quote.MarketCapitalization+'</td></tr></table>'
+					}, 
+					{
+						label: 'News Headlines',
+						content: ''+item+''
+					}]
+				});
+		    
+				tabview.render('#bottom');
+		
+				Y.one('body').addClass('yui3-skin-sam');
+			});
+		
+			//	document.getElementById('stnf').innerHTML.style.visibility='hidden';
+		} else if(data.result.Quote.LastTradePriceOnly=="0.00")
+		{
+			document.getElementById('stnf').style.display="block";
+			document.getElementById('stnf').innerHTML="<font size='10px' color='white'><center>Stock Information not found!</center></font>";
+			document.getElementById('top').style.display='none';
+			document.getElementById('bottom').style.display='none';
+			document.getElementById('hr1').style.display='none';
+		}
+	
+	}
+}
+</script>
+</head>
+
+<body class="yui3-skin-sam" style="background-image:url(http://cs-server.usc.edu:25882/examples/servlets/stockmarket.jpg);background-repeat: no-repeat;background-size: cover;">
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '611654888924885',
+	    status     : true,
+	    channelUrl : '//cs-server.usc.edu:25882/examples/servlets/channel.html',
+	    xfbml      : true,
+	    oauth : true
+	  });
+	};
+	// Load the SDK asynchronously
+	 (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<form name="searchstock" method="POST" action="#"  onsubmit="return validate();">
+	<br><br><br><br>
+	<div class="mss" style="text-align:left">
+		<div class="details" >
+			<label class="cs" style="margin-left:20px"><font size="5px" color="white">Company:</font></label>
+			<input class="sym" type="text" name="symbol" id="symbol" style="border-radius: 5px;width: 750px;height:25px" placeholder="Enter company symbol" autofocus/>
+			<input type="button" class="" id="newButton" value="Search" onClick="validate()" style="height:25px">
+		</div>
+	</div>
+</form>
+<br>
+<div id="maincontent" style="margin-left:16px">
+<div id="stnf"></div>
+<div id="top" style="visibility:visibile">
+		<table width="100%" >
+			<tr>
+				<td  width="70%">
+				</td>
+			<td rowspan='3' width="30%" height="100%"  id="stockimg">
+			</td>
+			</tr>
+			<tr>
+				<td style="margin-left:20px" width="70%">
+				<div id="name"></div>
+				<div id="lastprice"></div>
+				<div align="left" id="divfb" style="visibility:hidden;font:#FFF;float:left">
+		<a href="#" onClick="FacebookStock()" class="fbimg">
+			<img src="facebook.jpg" alt="Post to Facebook" width="75" height="25" >
+		</a>
+			</div>
+				</td>
+				<td width="30%"></td>
+			</tr>
+			<tr>
+				<td width="70%">
+				</td>
+				<td width="30%">
+				</td>
+			</tr>
+		</table>
+		<br><br>
+	</div>
+	
+	<hr id="hr1" style="visibility:hidden">
+	<div id="bottom"  style="visibility:visible">
+	</div>
+</div>
+</body>
+</html>

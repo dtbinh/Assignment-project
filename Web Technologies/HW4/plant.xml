@@ -1,0 +1,18 @@
+<CATALOG>
+	<PLANT>
+		<COMMON></COMMON>
+		<BOTANICAL></BOTANICAL>
+		<ZONE></ZONE>
+		<LIGHT></LIGHT>
+		<PRICE></PRICE>
+		<IMAGE></IMAGE>
+	</PLANT>
+	<PLANT>
+		<COMMON>Columbine</COMMON>
+		<BOTANICAL></BOTANICAL>
+		<ZONE>4</ZONE>
+		<LIGHT>Mostly Shady</LIGHT>
+		<PRICE></PRICE>
+		<IMAGE>Columbine.jpg</IMAGE>
+	</PLANT>
+</CATALOG>

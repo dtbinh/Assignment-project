@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="reviews">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="review" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="REVIEW_ID" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="BOOK_TITLE" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RATING" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:minInclusive value="1"/>
+									<xs:maxInclusive value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="REVIEWER" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="REVIEW_DESC" minOccurs="0" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="REVIEW_DATE" maxOccurs="1">
+							<xs:simpleType>
+								<xs:restriction base="xs:date">
+									
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+</xs:schema>
