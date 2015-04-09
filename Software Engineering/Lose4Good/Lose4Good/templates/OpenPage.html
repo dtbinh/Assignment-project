@@ -1,0 +1,65 @@
+{% extends 'baseL4g.html' %}
+
+{% block navigationLinks %} 
+
+ <li class="current_page_item"><a href="{% url accounts.views.OpenPage %}">Home</a></li>
+ <li><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+<li><a href="{% url accounts.views.WeightloserRegistration %}">Register</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+{% endblock %}
+
+{% block content %}
+<div id="features-wrapper">
+                                <div class="container">
+                                        <div class="row">
+                                                <div class="4u">
+                                                
+                                                        <!-- Box -->
+                                                                <section class="box box-feature">
+                                                                        <a href="#" class="image image-full"><img src="{{ STATIC_URL }}images/pic01.jpg" alt="" width="350" height="254"/></a>
+                                                                        <div class="inner">
+                                                                                <header>
+                                                                                        <h2>Get in shape</h2>
+                                                                                       
+                                                                                </header>
+                                                                                <p>45m Americans diet each year</p>
+                                                                        </div>
+                                                                </section>
+
+                                                </div>
+                                                <div class="4u">
+                                                
+                                                        <!-- Box -->
+                                                                <section class="box box-feature last">
+                                                                        <a href="#" class="image image-full"><img src="{{ STATIC_URL }}images/pic02.jpg" alt=""  width="350" height="254"/></a>
+                                                                        <div class="inner">
+                                                                                <header>
+                                                                                        <h2>Promote Healthy living</h2>
+                                                                               
+                                                                                </header>
+                                                                                <p>More than 1/3 of U.S. adults are obese. </p>
+                                                                        </div>
+                                                                </section>
+
+                                                </div>
+                                                <div class="4u">
+                                                
+                                                        <!-- Box -->
+                                                                <section class="box box-feature">
+                                                                        <a href="#" class="image image-full"><img src="{{ STATIC_URL }}images/pic03.jpg" alt="" width="350" height="254" /></a>
+                                                                        <div class="inner">
+                                                                                <header>
+                                                                                        <h2>Helps charity</h2>
+                                                                                     
+                                                                                </header>
+                                                                                <p> Donate to your favorite chairty</p>
+                                                                        </div>
+                                                                </section>
+
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+
+{% endblock %}

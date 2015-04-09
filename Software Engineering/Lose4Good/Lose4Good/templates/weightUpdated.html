@@ -1,0 +1,35 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li ><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li><a href="{% url goal.views.GoalTrack %}">Track Goal</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+<head>
+</head>
+<body>
+	
+        <p> {{ weightloser.fname }}&nbsp{{ weightloser.lname }}</p>
+        {% for message in messages %}
+  		{% if 'Goal_Done' in message.extra_tags %}<h3 align="center"> {{ message }}</h3>{% else %}
+  		
+  		{% if 'Done_Done' in message.extra_tags %}
+  		<h3 align="center"><font color='green'> Congratulation, you have achieved you goal </font></h3>
+  		<center><a href='{% url goal.views.PostFB %}' class="button small">Share on Facebook </a></center><br/>
+  		{% endif %}
+  		{% endif %}
+  		{% endfor %}
+
+{% if flag %}<center><a href='{% url goal.views.GoalTrack %}'class="button small">Track the new changes</a></center><br/>
+{% else %}<center><a href='{% url accounts.views.Profile %}' class="button small">Go back to your Profile </a></center><br/>
+{% endif %}
+
+</body>
+
+{% endblock %}
+
+
+
+
+

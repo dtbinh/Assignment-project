@@ -1,0 +1,45 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li ><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li><a href="{% url goal.views.GoalTrack %}">Track</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+{% for message in messages %}
+{% if 'Created_created' in message.extra_tags %}
+  		<h4 align="center"><font color='green'> {{ message }} </font> </h4>
+  	{% endif %}
+  		{% endfor %}
+<h3 align="center">Invite people to sponsor your goal</h3>
+
+<table align="left">
+<tr>
+<td>
+<form action="" method="post">
+{% csrf_token %}
+<table height="300" width="250" border="0" cellpadding="6" background="#edf0f5">
+	<tr><td colspan="1"><h4 align="center">Invite by Email</h4></td></tr>
+	<tr><td>{% if form.name.errors %}<p class="error">{{ form.name.errors }}</p>{% endif %}</td><td>{% if form.email.errors %}<p class="error">{{ form.email.errors }}</p>{% endif %}</td></tr>
+	<tr><td>{{ form.name }}</td><td>{{ form.email }}</td></tr>
+	<tr><td align="center" colspan="2">{% if form.message.errors %}<p class="error">{{ form.message.errors }}</p>{% endif %}</td></tr>
+	<tr><td align="center" colspan="2">{{ form.message }}</td>
+</td></tr>
+	<tr><td colspan="2" align="center"><h4><input type="submit"class="button small fa fa-arrow-circle-right" alt="send invitation" value="send invitation" /></h4></td></tr>
+
+</table>
+</form>
+</td>
+<td>
+<br/>
+</td>
+
+</tr>
+
+</table>
+</br></br>
+<div align="center">
+
+<a href="/SponsorFB" class="button small ">Invite sponsor via Facebook</a>
+</div>
+{% endblock %}

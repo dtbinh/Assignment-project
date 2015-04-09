@@ -1,0 +1,33 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Finance %}">Finance Home</a></li>
+<li><a href="{% url payment.views.Progress %}">Reports</a></li>
+<li class="current_page_item"><a href="{% url payment.views.SendMoney %}"> Donations</a></li>
+<li><a href="{% url payment.views.Approve %}">Transactions</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+ {% if dict %}
+<center>
+<h3 align="center">Charity Donation</h3>
+<table align="center" border="1" style="width:40%">
+<tr align="center">
+<th><h4>Charity Name</h4></th>
+<th><h4>Transfer Amount</h4></th>
+</tr>
+{% for key,value in dict.items %}
+<tr align="center">
+<td>{{ key }}</td>
+<td>{{ value }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</center>
+{% else%}
+<h3 align="center"><font color="red"> There are no Money to be sent to charity yet </font></3>
+<h4 align="center"><a href="{% url accounts.views.Finance %}">Click to return to home</a></h4>
+{% endif%}
+{% endblock %}
+
+

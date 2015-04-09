@@ -1,0 +1,94 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+<li><a href="{% url accounts.views.WeightloserRegistration %}">Register</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+
+{% endblock %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" type="text/css" href="css/main.min.css">
+<link rel="stylesheet" type="text/css" href="css/theme.min.css">
+<script src="paypal-button.min.js?merchant=thatceo@mybusiness.com" 
+></script>
+<script src="jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+function updatePayPalForm(element){
+	var amount = $(element).val();
+	$("#amountFinal").val(amount);
+}
+</script>
+</head>
+   	{% if not is_Active %}
+
+		    
+	<div class="container">
+
+		<h1>Hi,</h1>
+		
+		
+		<div class="container">
+	    	<p><strong> {{ name }} </strong> wants to lose <strong>{{ loseWeight }} lbs</strong> in <strong>{{ period }} days</strong>.<br>
+			Charity organization selected: <strong>{{ charity  }}</strong>.<br>
+	    	<!--<p>Money raised: <strong>$4500</strong></p>-->
+	    	Interested in helping out {{ name }}?<br> Donate now:</p>
+	    </div>
+	  	
+  			<form method="post" action="">
+  			 {% csrf_token %}
+  			 
+			  <div class="form-group" style="width:300px">
+			    <label for="inputName" class="col-lg-2 control-label">Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			     {{ form.name }}
+			  </div>  
+			    <div class="col-lg-4" style="width:300px">
+			    <label for="inputEmail" class="col-lg-2 control-label">Email:</label>
+			     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			     {{ form.email }}
+			    </div>
+			  <div class="form-group"style="width:300px">
+			    <label for="inputAmount" class="col-lg-2 control-label">Amount(in $):</label>
+			    &nbsp;
+			      {{ form.amtperlb }}
+			   </div>
+			     <br>
+			  <div class="form-group">
+			    {{ form.payToCharity }}<label for="inputAmount" class="col-lg-2 control-label"> Check this box if you would like your donation to be paid to the charity if the goal is not achieved.</label>
+			    <div class="col-lg-4">
+			      
+			    </div>
+			  </div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  <!--<input type="submit" class="button small">-->
+			  <button type="submit" class="button small">Submit</button>
+			</form>
+			
+			
+  			<!--<form class="col-md-12" method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" class="paypal-button" target="_top" style="opacity: 1;">
+				<input type="hidden" name="button" value="donate">
+				<input type="hidden" name="business" value="f13team08-facilitator@gmail.com">
+				<input type="hidden" name="item_name" value="Lose4Good">
+				<input type="hidden" name="quantity" value="">
+				<input type="hidden" name="amount" value="50" id="amountFinal" >
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="shipping" value="">
+				<input type="hidden" name="tax" value="">
+				<input type="hidden" name="notify_url" value="">
+				<input type="hidden" name="env" value="www.sandbox">
+				<input type="hidden" name="cmd" value="_donations">
+				<input type="hidden" name="bn" value="JavaScriptButton_donate">
+				<input type="hidden" name="return" value="http://127.0.0.1:8000/PaymentSuccessful">
+				<button type="submit" class="paypal-button large">Donate</button>
+			</form>-->
+			
+  		</div>
+
+  	</div>
+
+</center>
+	{% else %}
+	 <h3 align="center"><font color="red"> Oops! the goal is not active anymore! You can only sponsor active goals </font></h3>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Finance %}">Finance Home</a></li>
+<li class="current_page_item"><a href="{% url payment.views.Progress %}">Reports</a></li>
+<li><a href="{% url payment.views.SendMoney %}"> Donations</a></li>
+<li><a href="{% url payment.views.Approve %}">Transactions</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+
+{% if list %}
+<center>
+<h3 align="center">WeightLoser Report</h3>
+<table align="center" border="2" style="width:80%" >
+<tr align="center">
+<th><h4>Goal ID</h4></th>
+<th><h4>WeightLoser Name</h4></th>
+<th><h4>Creation Date</h4></th>
+<th><h4>Deadline</h4></th>
+<th><h4>Charity</h4></th>
+<th><h4>Status</h4></th>
+<th><h4>Progress</h4></th>
+</tr>
+
+{% for goal in list %}
+<tr align="center">
+<td>&nbsp;&nbsp;{{ goal.goalId }}</td>
+<td>{{ goal.weightloser.name }}</td>
+<td>{{ goal.creation_date }}</td>
+<td>{{ goal.deadline }}</td>
+<td>{{ goal.charity }}</td>
+<td>{{ goal.status }}</td>
+<td><progress value="{{ goal.progress}}" max="100"></progress></td>
+
+</tr>
+{% endfor %}
+</table>
+{% else%}
+<h3 align="center"><font color="red">There are no Goals to be  displayed yet </font></h3>
+<h4 align="center"><a href="{% url accounts.views.Finance %}">Click to return to home</a></h4>
+{% endif%}
+</center>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li class="current_page_item"><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li><a href="{% url goal.views.GoalTrack %}">Track Goal</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+<script>
+
+function confirmDeletion(){
+if (confirm('Are you sure you want to delete your current Goal?')) {
+    return true;
+} else {
+   return false;
+}}
+</script>
+		<center>
+		{% for message in messages %}
+{% if 'unauthorized' in message.extra_tags %}
+			  <b><font size='5px' color='red'>{{message}}</b></font><br>
+			{% endif %}
+			{% endfor%}
+		<table>
+		<tr>
+		<td>
+        <p><h4> Hi {{ weightloser.name }} </h4> Welcome to Lose4Good.org </p>
+        </td>
+        <tr>
+        <td align="center">
+		<p><h4> It is your greatest chance to lose weight as well as<br> gather some bucks for your favorite charity</h4></p>
+		</td>
+		</tr>
+		<tr>
+		<td align="center">
+		{% if flag %}
+        <a href="{% url goal.views.InviteSponsor %}" class="button small">Invite Sponsor</a>
+		<a href="{% url goal.views.GoalTrack %}" class="button small">Track your Goal</a>
+		
+        {% else %}
+        <p><h4> You don't have any active goal yet! Create one now...</h4></p>
+        
+        <a href="{% url goal.views.CreateGoal %}" class="button small">Create your Goal</a> 
+        {% endif %}
+        </td>
+        </tr>
+        {% if flag %}
+          <tr>
+		<td align="center">
+		<br>
+		</td>
+		</td>
+        <tr>
+		<td align="center">
+        <form method="post" action="{% url goal.views.DeleteGoal%}">
+			<input type="submit" class="button small" onClick="return confirmDeletion();"id="delete" value="Delete Goal">
+			{% csrf_token %}
+</form>
+{% endif %}
+</td></tr>
+{% if delete_cliked %}
+{% if status %}
+<tr>
+<td align="center" id="displaystatus">
+{% if status %}<b><font size='4px' color='green'>Goal Deleted.</b></font><br>
+{% else %}<b><font size='4px' color='red'>Goal cannot be deleted.It has sponsors associated with it.</b></font><br>
+{% endif %}
+{% endif %}
+</td>
+</tr>
+{% endif %}
+
+
+        </table>
+        </center>
+{% endblock %}

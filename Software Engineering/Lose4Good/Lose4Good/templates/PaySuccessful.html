@@ -1,0 +1,23 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li class="current_page_item"><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+
+{% endblock %}
+{% block content %}
+<table>
+<tr>
+<td>
+<center>
+	
+
+	<h3 align="center"> Thank you for your donation. </h3>
+    
+        </center>
+        </td>
+        </tr>
+        </table>
+{% endblock %}
+
+

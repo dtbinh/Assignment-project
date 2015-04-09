@@ -1,0 +1,43 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li class="current_page_item"><a href="{% url accounts.views.Finance %}">Finance Home</a></li>
+<li><a href="{% url payment.views.Progress %}">Reports</a></li>
+<li><a href="{% url payment.views.SendMoney %}"> Donations</a></li>
+<li><a href="{% url payment.views.Approve %}">Transactions</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+
+      <center>
+		<table>
+		<tr>
+		<td>
+        <h4>Welcome to the Finance section of Lose4Good.org </h4>
+        </td>
+        <tr><td><br></td></tr>
+		<tr>
+		<td align="center">
+        <a href="{% url payment.views.Progress %}" class="button small">View  Progress of the weight losers</a>
+       </td>
+		</tr>
+		
+			<tr><td><br></td></tr>
+		
+		<tr>
+		<td align="center">
+        <a href="{% url payment.views.SendMoney %}" class="button small">View money to be send to charity</a>
+         </td>
+		</tr>
+		<tr><td><br></td></tr>
+
+		<tr>
+		<td align="center">
+        <a href="{% url payment.views.Approve %}" class="button small">Approve the pending transactions</a>
+        </td>
+        </tr>
+   
+        </table>
+        </center>
+{% endblock %}
+
+

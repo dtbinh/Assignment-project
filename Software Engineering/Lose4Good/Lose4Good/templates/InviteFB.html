@@ -1,0 +1,86 @@
+<html>
+<body>
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li ><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+<script>
+
+window.fbAsyncInit = function()
+{
+    FB.init({
+        appId  : '762182133793888',
+        status : true, // check login status
+        cookie : true, // enable cookies to allow the server to access the session
+        xfbml  : true , // parse XFBML
+        oauth : true // Enable oauth authentication
+    });
+ 
+ 
+};
+ 
+function post_on_wall()
+{
+    FB.login(function(response)
+    {
+        if (response.authResponse)
+        {
+            //alert('Logged in!');
+ 
+            // Post message to your wall
+ 
+ 			var goalId = '{{goalId}}'
+ 			var domain = '{{ domain }}'
+ 			var link = domain + '/payment/' + goalId
+            var opts = {
+                message : document.getElementById('fb_message').value,
+                name : 'Lose4Good',
+                link : link,
+                description : 'Please click on the link to sponsor me!',
+                
+            };
+ 
+            FB.api('/me/feed', 'post', opts, function(response)
+            {
+                if (!response || response.error)
+                {
+                    alert('Posting error occured');
+                }
+                else
+                {
+                    //alert('Success - Post ID: ' + response.id);
+                    alert('Successfully posted on your Facebook wall.');
+                    window.history.back()
+                }
+            });
+        }
+        else
+        {
+            alert('Not logged in');
+        }
+    }, { scope : 'publish_stream' });
+	
+	
+}
+
+(function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+<div id="fb_div">
+    <h3>Post to your Facebook wall:</h3>
+    <textarea id="fb_message" name="fb_message" cols="70" rows="7"></textarea> <br />
+    <br />
+    <input type="button" class="small button" value="Post on your wall" onClick="post_on_wall();" />
+</div>
+
+<div id="fb-root"></div>
+{% endblock %}

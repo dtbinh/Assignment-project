@@ -1,0 +1,55 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Finance %}">Finance Home</a></li>
+<li><a href="{% url payment.views.Progress %}">Reports</a></li>
+<li><a href="{% url payment.views.SendMoney %}">Donations</a></li>
+<li class="current_page_item"><a href="{% url payment.views.Approve %}">Transactions</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+{% if list %}
+
+<center>
+<h3 align="center">Transaction Approval</h3>
+<form name="approveform" action="." method="POST">
+{% csrf_token %}
+
+<table align="center" border="1" style="width:100%">
+<tr align="center">
+<th><h4>Check</h4></th>
+<th><h4>ID</h4></th>
+<th><h4>WeightLoser</h4></th>
+<th><h4>Goal Deadline</h4></th>
+<th><h4>Charity</h4></th>
+<th><h4>Status</h4></th>
+<th><h4>Transaction Date & Time</h4></th>
+<th><h4>Transaction Amount</h4></th>
+
+</tr>
+{% for approvalTransaction in list %}
+<tr align="center">
+<td><input type="checkbox" name="checkbox" id="checkbox[]"value={{ approvalTransaction.approveId }} />
+<td>{{ approvalTransaction.goal.goalId }}</td>
+<td>{{ approvalTransaction.goal.weightloser.name }}</td>
+
+<td>{{ approvalTransaction.goal.deadline }}</td>
+<td>{{ approvalTransaction.goal.charity }}</td>
+<td>{{ approvalTransaction.goal.status }}</td>
+<td>{{ approvalTransaction.transaction_date }}</td>
+<td>{{ approvalTransaction.transactionAmount }}</td>
+
+</tr>
+{% endfor %}
+</table>
+<input align="center" type="submit" class="button small fa fa-arrow-circle-right" value="Approve selected Transactions"> 
+
+
+{% else%}
+<h3 align="center"><font color="red"> There are no transactions to be approved right now </font></h3>
+<h4 align="center"><a href="{% url accounts.views.Finance %}">Click to return to home</a></h4>
+{% endif%}
+</form>
+</center>
+{% endblock %}
+
+

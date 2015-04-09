@@ -1,0 +1,12 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.OpenPage %}">Home</a></li>
+<li><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+{% endblock %}
+
+{% block content %}
+<h4 align="center"> Thank you for using our Lose4Good.org site. You have been successfully logged out. </h4>
+<br>
+<h4 align="center"> <a href="{% url accounts.views.LoginRequest %}" class="button small"> login again</a>  </h4> 
+{% endblock %}	

@@ -1,0 +1,37 @@
+{% extends 'baseL4g.html' %}
+{% block title %}Login{% endblock %}
+{% block headerimage %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+	<script>
+  	$(function() {
+  		$( "#id_dob" ).datepicker();
+  	});
+  </script>
+{% endblock %}
+											{% block navigationLinks %} 
+											<li><a href="{% url accounts.views.OpenPage %}">Home</a></li>
+											<li class="current_page_item"><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+											
+												<li><a href="{% url accounts.views.WeightloserRegistration %}">Register</a></li>
+												<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+											{% endblock %}
+
+
+{% block content %}
+<center>
+
+<form action="/login/" method="post" id="formlogin" style="border-width:0;z-index:2;">
+{% csrf_token %}
+{% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}
+{{ form.username }}</td></tr>
+{% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{% endif %}
+{{ form.password }}</td></tr>
+<p align="center"><input type="submit" class="button small fa fa-arrow-circle-right" alt="register" value="Login"/></p>
+<p align="center">Forgot your password? <a href="/resetpassword/">Reset it!</a></p>
+<a href="/facebook/login" class="button small fa fa-arrow-circle-right" >Connect with Facebook</a>
+</form>
+<br>
+</center>
+{% endblock %}
+ 

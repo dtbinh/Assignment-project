@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<!--
+	Base Template for Lose4Good.org Website
+-->
+<html>
+	<head>
+		<title>Lose4Good {% block title %}{% endblock %}</title> 
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,800" rel="stylesheet" type="text/css" />
+		<link href="http://fonts.googleapis.com/css?family=Oleo+Script:400" rel="stylesheet" type="text/css" />
+		<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+		<script src="{{ STATIC_URL }}js/config.js"></script>
+		<script src="{{ STATIC_URL }}js/skel.min.js"></script>
+		<script src="{{ STATIC_URL }}js/skel-panels.min.js"></script>
+		
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/skel-noscript.css" type="text/css"/>
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"/>
+		
+		<link rel='stylesheet' media='screen and (min-width: 681px)' href='{{ STATIC_URL }}css/style-desktop.css' />
+		<link rel='stylesheet' media='screen and  (max-width: 680px)' href='{{ STATIC_URL }}css/style-mobile.css' />
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+	</head>
+	<body class="homepage">
+
+		{% block header %} 	
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Header -->
+								<header id="header">
+								
+									<!-- Logo -->
+										<div id="logo">
+											<h1><a href="{% url accounts.views.OpenPage %}" id="logo">Lose4Good</a></h1>
+											<span>Promote Healthy Living</span>
+										</div>
+									
+									<!-- Nav -->
+										<nav id="nav">
+											<ul>
+												{% block navigationLinks %} 
+											<li class="current_page_item"><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+												<li><a href="{% url accounts.views.WeightloserRegistration %}">Register</a></li>
+												<li><a href="{% url goal.views.CreateGoal %}">Create Goal</a></li>
+												<li><a href="{% url goal.views.GoalTrack %}">Track Goal</a></li>
+												<li><a href="{% url accounts.views.LogoutRequest %}">About Us</a></li>
+												<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+												{% endblock %}
+											</ul>
+										</nav>
+								
+								</header>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endblock %}
+	
+		<!-- Main Wrapper -->
+			<div id="main-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+							<!-- Content -->
+								<div id="content">
+									<section class="last">
+										{% block content %}
+										{% endblock %}
+									</section>
+								</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Footer Wrapper -->
+			{% block footer %}
+			<div id="footer-wrapper">
+				<footer id="footer" class="container">
+					<div class="row">
+						
+					
+					<!-- Links -->
+								<div class="12u">
+									<center>
+									<h4>Lose4Good.org</h4>
+									
+										<a href="{% url accounts.views.OpenPage %}">HomePage</a>&nbsp;|&nbsp;<a href="#">Lose4Good blog</a>&nbsp;|&nbsp;<a href="{% url accounts.views.AboutUs %}">About Us</a>
+										
+										<div id="copyright">
+										&copy; Lose4Good.org . All rights reserved. 
+										</div>
+									</center>
+								</div>
+					</div>
+				</footer>
+			</div>
+{% endblock %}
+	</body>
+</html>
+	

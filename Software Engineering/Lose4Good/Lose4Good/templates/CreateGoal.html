@@ -1,0 +1,97 @@
+{% extends 'baseL4g.html' %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li class="current_page_item"><a href="{% url goal.views.CreateGoal %}">Create Goal</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker({minDate: +1,
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "2014:2100",
+      // You can put more options here.
+
+    });
+  });
+  </script>
+
+ <div align="center" id="displaystatus">
+<table>
+{% for message in messages %}
+ <tr>`
+<td align="center" id="displaystatus">
+{% if 'Goal_To_be_created' in message.extra_tags %}
+			  <b><font size='5px' color='red'>{{message}}</b></font><br>
+			{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+<div align="center">
+<h2 class="heading2" align="center">Enter your goal details</h2>
+<form action="" method="post" id="formGoal">
+{% csrf_token %}
+<table align="center" cellpadding="5">
+<tr><td colspan="2">{% if form.errors %}<p class="error">Please correct the following fields:  <font color='red'> {{form.non_field_errors}}</font></p>{% endif %}</tr>
+<tr><td>
+What is your current weight?
+</td><td>
+{{ form.currWeight }}
+</td>
+<td>
+  <font color='red'>{% if form.currWeight.errors %}<p class="error">{{ form.currWeight.errors }}</p>{% endif %}</font>
+</td>
+</tr>
+
+<tr><td>
+How many pounds do you want to lose?
+</td><td>
+{{ form.losepounds }}
+</td>
+<td>
+  <font color='red'>{% if form.losepounds.errors %}<p class="error">{{ form.losepounds.errors }}</p>{% endif %}</font>
+</td>
+</tr>
+
+<tr><td>
+By when do you want to achieve this goal?
+</td><td>
+{{ form.deadline }}
+</td>
+<td>
+  <font color='red'>{% if form.deadline.errors %}<p class="error">{{ form.deadline.errors }}</p>{% endif %}</font>
+</td>
+</tr>
+
+<tr><td>
+Select the Charity Organization you wish to help.
+</td><td>
+{{ form.charitylist }}
+</td>
+<td>
+  <font color='red'>{% if form.charitylist.errors %}<p class="error">{{ form.charitylist.errors }}</p>{% endif %}</font>
+</td>
+</tr>
+<tr><td colspan="2">
+<br>
+<p align="center"><input type="submit" class="button small fa fa-arrow-circle-right" alt="Create" value="Start Goal Now"/></p>
+</td>
+<td>
+</td>
+</tr>
+</form>
+</div>
+{# Here if the goal has already been created, then redirect to the Goal Details or Track Goal Page#}
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

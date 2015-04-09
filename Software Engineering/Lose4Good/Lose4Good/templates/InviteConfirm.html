@@ -1,0 +1,15 @@
+{% extends "baseL4g.html" %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li><a href="{% url goal.views.GoalTrack %}">Track</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+        
+
+<center><h4 ><font color='green'> The invitation for sponsorship has been sent successfully.</font> </h4> </center>
+<br>
+<h4 align="center"> <a href="{% url accounts.views.Profile %}" class="button small">Back to profile</a> </h4>
+
+{% endblock %}

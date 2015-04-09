@@ -1,0 +1,58 @@
+{% extends "baseL4g.html" %}
+{% load i18n %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.LoginRequest %}">Login</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+{% endblock %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" type="text/css" href="css/main.min.css">
+<link rel="stylesheet" type="text/css" href="css/theme.min.css">
+<script src="paypal-button.min.js?merchant=thatceo@mybusiness.com">
+	
+</script>
+<script src="jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+function updatePayPalForm(element){
+	var amount = $(element).val();
+	$("#amountFinal").val(amount);
+}
+</script>
+</head>
+	<div class="row">
+  			<h4 ><font color='green'>You have selected to donate a total amount of <strong>${{ amount|floatformat:2 }}</font>.</h4>
+			<p class="col-md-12"><font color='green'>Donation can be don through PayPal. Click the button below to proceed:</font</p>
+			<form id="checkout" target="paypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr"  method="post">
+				{% csrf_token %}
+			    <input type="image" src="http://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+			    <input type="hidden" value="f13team08-facilitator@gmail.com" name="business">
+			    <input type="hidden" value="Lose4Good Sponsorship Donation" name="item_name">
+			    <input type="hidden" value="{{ amount }}" name="amount">
+			    <input type="hidden" value="0" name="tax">
+			    <input type="hidden" value="USD" name="currency_code">
+			
+			
+			    <input type="hidden" value="" name="first_name">
+			    <input type="hidden" value="" name="last_name">
+			    <input type="hidden" value="" name="email">
+			
+			    <input type="hidden" value="" name="address1">
+			    <input type="hidden" value="" name="city">
+			    <input type="hidden" value="US" name="country">
+			
+			    <input type="hidden" value="0" name="address_override">
+			
+			
+			    <input type="hidden" value="http://{{ domain }}/PaymentSuccessful" name="return">
+			    <input type="hidden" value="http://{{ domain }}/PaymentSuccessful" name="cancel_return">
+			
+			    <input type="hidden" value="{{ transactionId }}" name="invoice">
+			    <input type="hidden" value="sale" name="paymentaction">
+			
+			    <input type="hidden" name="cmd" value="_xclick">
+			    <input type="hidden" name="charset" value="utf-8">
+			    
+			</form>
+  		</div>
+{% endblock %}

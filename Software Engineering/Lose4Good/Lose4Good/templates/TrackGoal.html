@@ -1,0 +1,254 @@
+{% extends 'extL4g.html' %}
+{% block navigationLinks %} 
+<li><a href="{% url accounts.views.Profile %}">My Profile</a></li>
+<li class="current_page_item"><a href="{% url goal.views.GoalTrack %}">Track Goal</a></li>
+<li><a href="{% url accounts.views.AboutUs %}">About Us</a></li>
+<li><a href="{% url accounts.views.LogoutRequest %}">Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src=""></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      
+      String.prototype.insert = function (index, string) {
+  if (index > 0)
+    return this.substring(0, index) + string + this.substring(index, this.length);
+  else
+    return string + this;
+};
+      
+      
+      
+      function drawChart() {
+	    var data1="{{array1}}"
+	    var data2="{{array2}}"
+	   
+	   newdata1= JSON.parse(data1);
+	   newdata2= JSON.parse(data2);
+	    //alert(newdata);
+	   //alert(newdata1+" and "+newdata2+"length"+newdata1.length);
+	 
+	 var x= new Array(newdata1.length+1);
+	 for(k=0;k<newdata1.length+1;k++)
+	 {
+	 x[k]=new Array(2);
+	 }
+	  
+	 
+	  
+	  for(var i=1;i<newdata1.length+1;i++)
+	  {
+	   for(var j=0;j<2;j++)
+	   {
+	   	 if(j==0)
+	   	 {
+	      x[i][0]=newdata1[i-1];
+	      }
+	     
+	     else
+	     {
+	      x[i][1]=newdata2[i-1]; 
+	      }
+	    }
+	  }
+	  
+	  x[0][0]="Days";
+	  x[0][1]="Weight";
+	  
+	  
+	  
+
+	  //var x=[['Days','Weight'],[5,100],[10,90],[15,80]];
+	  //alert(x);
+	  
+	  
+	 /* var data = google.visualization.arrayToDataTable([
+          ['Days', 'Weight'],
+          [5,  100],
+          [10,  90],
+          [15,  80],
+          [20,  70]
+        ]);  */
+	  
+	  
+	    
+	    
+        var data = google.visualization.arrayToDataTable(x);
+
+        var options = {
+          title: 'Progress Report'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+	<script type="text/javascript">
+	function drawpiechart() {
+		var chart = new CanvasJS.Chart("chartContainer",
+		{
+			title:{
+				text: "Goal statistics",
+				fontFamily: "arial black"
+
+			},
+			legend: {
+				verticalAlign: "bottom",
+				horizontalAlign: "center"
+			},
+			toolTip:{
+				enabled: true
+			},
+			theme: "theme1",
+			data: [
+			{        
+				type: "pie",
+				indexLabelFontFamily: "Garamond",       
+				indexLabelFontSize: 15,
+				indexLabelFontWeight: "bold",
+				startAngle:0,
+				indexLabelFontColor: "Black",       
+				indexLabelLineColor: "darkgrey", 
+				indexLabelPlacement: "inside", 
+				toolTipContent: "{name}: {y}%",
+				showInLegend: true,
+				dataPoints: [
+				{  y: {{cPercent}}, indexLabel: "{{completed}} lbs Complete" , name: "Completed", legendMarkerType: "triangle"},
+				
+				{  y: {{rPercent}}, indexLabel: "{{remaining}} lbs Remain", name: "Remaining", legendMarkerType: "circle"}
+				
+				]
+			}
+			]
+		});
+
+		chart.render();
+	}
+	</script>
+	<script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<body onload="drawChart();drawpiechart()">
+
+
+<div id="div1">
+<br />
+<center>
+<table>
+<tr> 
+<td>
+<h4>Your Goal is to achieve weight of:</h4> 
+</td>
+<td style="text-align:right;">
+{{targetWeight}} lbs
+</td>
+</tr>
+
+<tr>
+<td>
+<h4>Your Current Weight:</h4> 
+</td>
+<td style="text-align:right;">
+{{currentWeight}}lbs
+</td>
+</tr>
+
+<tr>
+<td>
+<h4>Your Goal Deadline:</h4> 
+</td>
+<td style="text-align:right;">
+{{deadline}}
+</td>
+</tr>
+
+<tr>
+<td>
+<h4>Charity Organization:</h4> 
+</td>
+<td style="text-align:right;">
+{{charity}}
+</td>
+</tr>
+<tr>
+<td>
+<h4>Progress:</h4> 
+</td>
+<td style="text-align:right;"><progress value="{{ progress}}" max="100"></progress></td>
+</td>
+</td>
+<br>
+<tr>
+<td>
+<h4>Click to Update your weight: </h4> 
+</td>
+<td style="text-align:right;">
+
+ <form action="{% url goal.views.addWeight %}" method="post" id="formGoal">
+ {% csrf_token %}
+ {{form.newWeight}}
+ <input type="submit" class="button small fa fa-arrow-circle-right" alt="register" value="Update" >
+ {% if form.errors %}<p class="error"> {{ form.errors }}</p>{% endif %}
+ </form>
+</td></tr>
+    
+</td>
+</tr>
+</table></center>
+</div>
+<div align="center" id="displaystatus">
+<table>
+{% for message in messages %}
+ <tr>
+<td align="center" id="displaystatus">
+{% if 'Goal_updated_less' in message.extra_tags %}
+<b><font size='5px' color='green'>Your new weight has been updated successfully.</b></font><br>
+<b><font size='4px' color='green'> Congrats on losing weight, your are on the right track to achieve your goal</p>
+		{% endif %}	
+			 {% if 'Goal_updated_still' in message.extra_tags %}
+			 <b><font size='5px' color='green'>Your new weight has been updated successfully.</b></font><br>
+			 <b><font size='5px' color='red'> Your haven't made any progress since last update! work harder to achieve your goal</b></font><br>
+			 {% endif %}
+			  {% if 'Goal_updated_more' in message.extra_tags %}
+			  <b><font size='5px' color='green'>Your new weight has been updated successfully.</b></font><br>
+			 <b><font size='5px' color='red'>You gained more weight since the last update!! It it is time to work out again</b></font><br>
+			{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div id="div2">
+<table>
+<tr>
+<td style="width: 900px; height: 500px;">
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+</td>
+</tr>
+<tr>
+<td style="width: 900px;text-align:center;">Days</td>
+</tr>
+<tr>
+<td style="width: 900px; height: 100px;">
+</td>
+</tr>
+<tr>
+<td style="width: 900px; height: 500px;">
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+<br>
+
+</body>
+{% endblock %}
+ 
+
