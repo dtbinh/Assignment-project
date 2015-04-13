@@ -106,6 +106,7 @@ def GoalCreated(request):
     return render_to_response('GoalCreated.html','','')
 
 '''
+Author:Omkar Yerunkar
 Description:    This method is responsible for inviting the sponsor and sends 
                 an email with the desired message.
 '''
@@ -136,7 +137,7 @@ def InviteSponsor(request):
         return render_to_response('InviteSponsor.html',context, context_instance=RequestContext(request))
 
 '''
-
+Author:Omkar Yerunkar
 Description:    This method send the confirmation for inviting sponsors
 
 '''
@@ -156,6 +157,7 @@ def PostFB(request):
     return render_to_response('AchieveFB.html',context,context_instance=RequestContext(request))
     
 '''
+Author:Omkar Yerunkar
 Description:    This method navigates the user to the payment page on receiving the 
                 invitation link in his email account.
 ''' 
@@ -202,6 +204,7 @@ def PaymentPage(request,goalId=None):
         return render_to_response('PaymentPage.html',context, context_instance=RequestContext(request))
 
 '''
+Author:Omkar Yerunkar
 Description:    This method navigates the user to the donation confirmation page 
                 where the user could be redirected to PayPal.
 ''' 
@@ -331,7 +334,7 @@ def addWeight(request):
         return HttpResponseRedirect('/createGoal/')
           
 '''
-Author: Arul Samuel 
+Author: Arul Samuel, Omkar Yerunkar
 Description:  This method adds a record into the ApproveTransaction table
 '''
 
@@ -455,7 +458,7 @@ def DeleteGoal(request):
      return HttpResponseRedirect('/createGoal/')
 
 '''
-Author: Ali Alotaibi 
+Author: Ali Alotaibi, Omkar Yerunkar 
 Description:  This method retrieve active Goal ID
 '''
 def getCurrentGoal(request):
