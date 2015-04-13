@@ -3,7 +3,7 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <TITLE>
-      Homework 8 | Stock Search
+      Homework 8 | Stock Search Project
     </title>
 <link rel="stylesheet" type="text/css" href="hw8css.css">
 
@@ -15,7 +15,6 @@
 
 var APP_ID="611654888924885";
 function FacebookStock() {
-	//alert(symbname+ltpo+changetype+changeval+changepercent+symb+img);
 	FB.ui(
 		      {
 		       method: 'feed',
@@ -65,7 +64,6 @@ function FacebookStock() {
 		{
 			req.onreadystatechange = callback;
 			req.open("GET","http://cs-server.usc.edu:25882/examples/servlet/stock_servlet?symbol="+searchstock.symbol.value,true);
-			//alert("http://cs-server.usc.edu:25882/examples/servlet/stock_servlet?symbol="+searchstock.symbol.value);
 			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 			req.send("");
 		} else
@@ -77,11 +75,8 @@ function FacebookStock() {
 	function callback()
 	{
 		var data;
-		//alert(req.readyState+"   "+req.status);
-	
 		if (req.readyState == 4 && req.status==200) 
 		{
-			//alert("Response: "+req.responseText);
 			data = eval('(' + req.responseText + ')');
 		
 		} else 
@@ -89,11 +84,9 @@ function FacebookStock() {
 			//alert("fail");
 		}
 	
-		//alert(data.result.News.Item.length);
 		if(!data.result.error)
 		{
 			document.getElementById('bottom').innerHTML="";
-			//document.getElementById('maincontent').innerHTML="";
 		
 			if(data.result.Quote.LastTradePriceOnly!="0.00")
 			{
@@ -109,7 +102,6 @@ function FacebookStock() {
 			document.getElementById('top').style.display='block';
 			document.getElementById('bottom').style.display='block';
 			document.getElementById('hr1').style.display='block';
-			//document.getElementById('stnf').style.display='none';
 			if(data.result.Quote.ChangeType=="+")
 			{
 				document.getElementById('lastprice').innerHTML = "<table><tr><td><font size='7px' color='white'>"+data.result.Quote.LastTradePriceOnly+"</td><td>&nbsp;&nbsp;&nbsp;<img src='"+up+"' alt='"+data.result.Quote.ChangeType+"' height='25px' width='10px'></td><td><font color='green' size='6px'>"+data.result.Quote.Change+"</td><td><font color='green' size='6px'> ("+data.result.Quote.ChangeInPercent+"%)</td></table>";
@@ -125,7 +117,6 @@ function FacebookStock() {
 				changeval=data.result.Quote.Change;
 				changepercent=data.result.Quote.ChangeInPercent;
 			}
-			//document.getElementById('stockimg').innerHTML = "<table><tr><td><img src ='"+data.result.StockChartImageURL+"' align='right'></td></tr></table>";
 			document.getElementById('divfb').style.visibility='visible';
 			document.getElementById('stockimg').innerHTML = "<table><tr><td IMG-ALIGN='right'><img src ='"+data.result.StockChartImageURL+"' align='right' height='160px' style='position:relative;left:145px'></td></tr></table>";
 			document.getElementById('hr1').style.visibility='visible';
@@ -133,7 +124,6 @@ function FacebookStock() {
 			news=data.result.News.Item;
 			link=data.result.News.Item;
 			var item="<ul>";
-			//alert(news.length);
 			if(news.length==null)
 			{
 				item +="News Information Not Available";
@@ -144,7 +134,6 @@ function FacebookStock() {
 				}
 			}
 			item+="</ul>";
-			//alert(item);
 			YUI().use('tabview','autocomplete', 'autocomplete-highlighters','node','event','autocomplete-filters', function (Y) {
 				// TabView is available and ready for use. Add implementation
 				// code here.
@@ -164,7 +153,6 @@ function FacebookStock() {
 				Y.one('body').addClass('yui3-skin-sam');
 			});
 		
-			//	document.getElementById('stnf').innerHTML.style.visibility='hidden';
 		} else if(data.result.Quote.LastTradePriceOnly=="0.00")
 		{
 			document.getElementById('stnf').style.display="block";
